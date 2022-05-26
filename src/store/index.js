@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import articles from './modules/articles'
 
 // import example from './module-example'
 
@@ -16,17 +17,10 @@ Vue.use(Vuex)
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
-    state: {
-        count: 0
-    },
-    mutations: {
-        increment (state) {
-            state.count++
-        }
-    },
+    
 
     modules: {
-      // example
+        articles
     },
 
     // enable strict mode (adds overhead!)
