@@ -1,109 +1,70 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
+    <q-layout view="lHh Lpr lFf">
+        <q-header elevated>
+            <q-toolbar class="bg-black text-white">
+                <q-btn @click="redirectArticles" :color="getActive('articles')" flat label="Artikelen"></q-btn>
+                <q-separator dark vertical inset></q-separator>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+                <q-btn @click="redirectGames" :color="getActive('games')" flat label="Games"></q-btn>
+                <q-separator dark vertical inset></q-separator>
 
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
+                <q-btn @click="redirectCalendar" :color="getActive('calendar')" flat label="Agenda"></q-btn>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
+                <q-space></q-space>
 
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+                <q-toolbar-title>
+                    Sacred gaming
+                </q-toolbar-title>
+
+                <q-space></q-space>
+
+                <q-btn @click="redirectLogin" :color="getActive('login')" flat label="Inloggen"></q-btn>
+            </q-toolbar>
+        </q-header>
+
+        <q-page-container>
+            <router-view />
+        </q-page-container>
+    </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
 
 export default {
-  name: 'MainLayout',
-  components: {
-    EssentialLink
-  },
-  data () {
-    return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
+    name: 'MainLayout',
+    data () {
+        return {}
+    },
+    methods:{
+        getActive(link){
+            const currentRoute = this.$router.currentRoute.fullPath;
+            
+            if(currentRoute === '/' && link === 'articles'){
+                return 'primary'
+            }
+
+            if(currentRoute === '/games' && link === 'games'){
+                return 'primary'
+            }
+
+            if(currentRoute === '/calendar' && link === 'calendar'){
+                return 'primary'
+            }
+
+            return 'white';
+        },
+        redirectArticles(){
+            this.$router.push('/');
+        },
+        redirectGames(){
+            this.$router.push('/games');
+        },
+        redirectCalendar(){
+            this.$router.push('/calendar');
+        },
+        redirectLogin(){
+            this.$router.push('/login');
+        }
     }
-  }
 }
 </script>

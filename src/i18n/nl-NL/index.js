@@ -2,8 +2,8 @@
 // so you can safely delete all default props below
 
 export default {
-    articles: 'Articles',
+    articles: 'Artikelen',
     games: 'Games',
-    calendar: 'Calendar',
-    signIn: 'Sign in',
+    calendar: 'Kalender',
+    signIn: 'Inloggen',
 }
