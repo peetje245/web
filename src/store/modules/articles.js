@@ -1,30 +1,38 @@
+import store from '..';
 import apiArticles from '../../api/articles'
 
-// initial state
-// shape: [{ id, quantity }]
-const state = {
-  all: [],
-  count: 0
-}
+const state = () => ({
+    all: []
+})
 
 // getters
 const getters = {
-    allArticles()  {
-        return 'testen';
+    allArticles(state)  {
+        return state.all;
     }
 }
 
 // mutations
 const mutations = {
-    setAllArticles(articles){
-
-        state.all = articles;
-
+    mutateAllArticles(state, articles){
+        state.all = articles
+    },
+    
+    test(state){
+        apiArticles.getArticles((state, articles) => {
+            state.all = articles;
+        })
     }
 }
 
 // actions
-const actions = {}
+const actions = {
+    setAllArticles({commit}){
+        apiArticles.getArticles(articles => {
+            commit('mutateAllArticles', articles)
+        })
+    }
+}
 
 export default {
   namespaced: true,

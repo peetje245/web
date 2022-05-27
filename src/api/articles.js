@@ -11,14 +11,25 @@ const articles = [
 ]
 
 export default {
-    getProducts (cb) {
-        axios
-        .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-        .then(response => (
-            this.info = response
+    getArticles () {
+        console.log('api', articles)
 
-            
-            ))
-        .catch(error => console.log(error))
+        let info = null;
+        let url = 'articles'
+
+        // let test = `${Config.get('API_URL')}${url}`;
+
+        axios
+        .get('api/articles')
+        .then((response) => {
+            console.log('response', response);
+
+            info = response
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        return info;
     },
 }

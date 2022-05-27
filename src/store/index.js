@@ -20,7 +20,7 @@ export default function (/* { ssrContext } */) {
     
 
     modules: {
-        articles
+        articles,
     },
 
     // enable strict mode (adds overhead!)
