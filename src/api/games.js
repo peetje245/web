@@ -2,11 +2,11 @@
  * Mocking client-server processing
  */
 
-import axios from 'axios';
+ import axios from 'axios';
 
-export default {
-    getArticles () {
-        let url = 'api/articles'
+ export default {
+    getGames () {
+        let url = 'api/games'
 
         return new Promise((resolve, reject) => {
             axios
@@ -19,4 +19,4 @@ export default {
             })
         })
     },
-}
+ }

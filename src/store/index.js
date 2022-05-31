@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import articles from './modules/articles'
+import games from './modules/games'
 
 // import example from './module-example'
 
@@ -21,6 +22,7 @@ export default function (/* { ssrContext } */) {
 
     modules: {
         articles,
+        games,
     },
 
     // enable strict mode (adds overhead!)
