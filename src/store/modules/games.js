@@ -1,5 +1,5 @@
 import store from '..';
-import apiGames from '../../api/games'
+import api from '../../api/games'
 
 const state = () => ({
     all: []
@@ -18,7 +18,7 @@ const mutations = {
 // actions
 const actions = {
     getAllGames({commit}){
-        apiGames.getGames()
+        api.getGames()
             .then((value) => { 
                 commit('mutateAllGames', value)
             })
