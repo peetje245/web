@@ -10,7 +10,7 @@
 
 const ESLintPlugin = require('eslint-webpack-plugin')
 
-module.exports = function (/* ctx */) {
+module.exports = function ( ctx ) {
   return {
     // https://v1.quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
@@ -35,7 +35,7 @@ module.exports = function (/* ctx */) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v5',
-      // 'fontawesome-v6',
+      'fontawesome-v6',
       // 'eva-icons',
       // 'themify',
       // 'line-awesome',
@@ -47,30 +47,36 @@ module.exports = function (/* ctx */) {
 
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+        vueRouterMode: 'hash', // available values: 'hash', 'history'
 
-      // transpile: false,
+        // transpile: false,
 
-      // Add dependencies for transpiling with Babel (Array of string/regex)
-      // (from node_modules, which are by default not transpiled).
-      // Applies only if "transpile" is set to true.
-      // transpileDependencies: [],
+        // Add dependencies for transpiling with Babel (Array of string/regex)
+        // (from node_modules, which are by default not transpiled).
+        // Applies only if "transpile" is set to true.
+        // transpileDependencies: [],
 
-      // rtl: false, // https://v1.quasar.dev/options/rtl-support
-      // preloadChunks: true,
-      // showProgress: false,
-      // gzip: true,
-      // analyze: true,
+        // rtl: false, // https://v1.quasar.dev/options/rtl-support
+        // preloadChunks: true,
+        // showProgress: false,
+        // gzip: true,
+        // analyze: true,
 
-      // Options below are automatically set depending on the env, set them if you want to override
-      // extractCSS: false,
+        // Options below are automatically set depending on the env, set them if you want to override
+        // extractCSS: false,
 
-      // https://v1.quasar.dev/quasar-cli/handling-webpack
-      // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack (chain) {
-        chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
-      }
+        // https://v1.quasar.dev/quasar-cli/handling-webpack
+        // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
+        chainWebpack (chain) {
+            chain.plugin('eslint-webpack-plugin')
+            .use(ESLintPlugin, [{ extensions: [ 'js', 'vue' ] }])
+        },
+
+        env: {
+            IMAGE_PATH: ctx.dev
+            ? 'http://localhost:8000/files/'
+            : 'https://prod.api.com'
+        }
     },
 
     // Full list of options: https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
@@ -92,7 +98,9 @@ module.exports = function (/* ctx */) {
     framework: {
       iconSet: 'material-icons', // Quasar icon set
       lang: 'en-us', // Quasar language pack
-      config: {},
+      config: {
+        notify: { /* look at QUASARCONFOPTIONS from the API card (bottom of page) */ }
+      },
 
       // Possible values for "importStrategy":
       // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
@@ -107,7 +115,9 @@ module.exports = function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Notify'
+      ]
     },
 
     // animations: 'all', // --- includes all animations

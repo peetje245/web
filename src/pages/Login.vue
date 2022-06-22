@@ -67,7 +67,7 @@ export default {
     },
     methods:{
         ...mapActions({
-            login: 'user/login',
+            login: 'users/login',
         }),
         redirectRegister(){
             this.$router.push('/register')

@@ -1,7 +1,7 @@
 <template>
-  <q-page class="flex flex-center">
-      calendar
-  </q-page>
+    <q-page>
+        calendar
+    </q-page>
 </template>
 
 <script>

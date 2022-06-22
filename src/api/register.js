@@ -20,7 +20,6 @@
             axios
             .post(url, data)
             .then((response) => {
-                console.log('response', response.data)
                 resolve(response.data)
             })
             .catch((error) => {

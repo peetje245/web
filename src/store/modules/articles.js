@@ -1,8 +1,8 @@
 import store from '..';
 import api from '../../api/articles'
+import Article from '../models/Article';
 
 const state = () => ({
-    all: []
 })
 
 // getters
@@ -10,17 +10,14 @@ const getters = {}
 
 // mutations
 const mutations = {
-    mutateAllArticles(state, articles){
-        state.all = articles
-    },
 }
 
 // actions
 const actions = {
     getAllArticles({commit}){
         api.getArticles()
-            .then((value) => { 
-                commit('mutateAllArticles', value)
+            .then((response) => { 
+                Article.insert({data: response})
             })
             .catch((err) => { 
                 console.log('err', err) 

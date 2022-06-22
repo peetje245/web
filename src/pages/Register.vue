@@ -68,7 +68,7 @@ export default {
     },
     methods:{
         ...mapActions({
-            register: 'user/register',
+            register: 'users/register',
         }),
     }
 }
