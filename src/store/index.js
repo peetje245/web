@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexORM from "@vuex-orm/core";
+import VuexORMSearch from '@vuex-orm/plugin-search'
+import axios from 'axios'
+import VuexORMAxios from '@vuex-orm/plugin-axios'
 
 import articles from './modules/articles'
 import games from './modules/games'
@@ -12,8 +16,8 @@ import publishers from './modules/publishers'
 import developers from './modules/developers'
 import franchises from './modules/franchises'
 import images from './modules/images'
+import videos from './modules/videos'
 
-import VuexORM from '@vuex-orm/core'
 import User from './models/User'
 import Role from './models/Role'
 import Article from './models/Article'
@@ -25,13 +29,18 @@ import Publisher from './models/Publisher'
 import Developer from './models/Developer'
 import Franchise from './models/Franchise'
 import Image from './models/Image'
+import Video from './models/Video'
 
-// import example from './module-example'
+import GameGenre from './models/GameGenre'
+import GamePlatform from './models/GamePlatform'
 
 Vue.use(Vuex)
 
+VuexORM.use(VuexORMSearch, {})
+VuexORM.use(VuexORMAxios, { axios })
+
 // Create a new instance of Database.
-const database = new VuexORM.Database()
+const database = new VuexORM.Database();
 
 // Register Models to Database.
 database.register(User, users)
@@ -45,6 +54,10 @@ database.register(Publisher, publishers)
 database.register(Developer, developers)
 database.register(Franchise, franchises)
 database.register(Image, images)
+database.register(Video, videos)
+
+database.register(GameGenre)
+database.register(GamePlatform)
 
 /*
  * If not building with SSR mode, you can
@@ -54,6 +67,7 @@ database.register(Image, images)
  * async/await or return a Promise which resolves
  * with the Store instance.
  */
+
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({

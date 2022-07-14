@@ -7,10 +7,11 @@ export default class Platform extends Model {
 
     static fields () {
         return {
-            id: this.number(null),
+            id: this.number(0),
             title: this.string(''),
-            release_year: this.string(''),
-            active: this.boolean()
+            release_year: this.number(0),
+            active: this.boolean(false),
+            checked: this.boolean(true)
         }
     }
 }

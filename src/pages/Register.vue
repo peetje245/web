@@ -38,7 +38,7 @@
                         label="Save"
                         class="q-mt-md"
                         color="primary"
-                        @click="register({email, password, name, password_confirmation})"
+                        @click="register()"
                     >
                         <template v-slot:loading>
                         <q-spinner-facebook></q-spinner-facebook>
@@ -52,7 +52,7 @@
 
 <script>
 
-import { mapActions } from 'vuex'
+import User from '../store/models/User'
 
 export default {
     name: 'Login',
@@ -67,9 +67,17 @@ export default {
         }
     },
     methods:{
-        ...mapActions({
-            register: 'users/register',
-        }),
+        register(){
+            let data = {
+                email: this.email,
+                password: this.password,
+                password_confirmation: this.password_confirmation,
+                name: this.name,
+                type: 'web'
+            }
+
+            User.dispatch('register', data);
+        }
     }
 }
 </script>

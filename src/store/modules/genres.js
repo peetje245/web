@@ -1,5 +1,3 @@
-import store from '..';
-import api from '../../api/genres'
 import Genre from '../models/Genre';
 
 const state = () => ({
@@ -14,44 +12,45 @@ const mutations = {
 
 // actions
 const actions = {
-    getAllGenres({commit}){
-        api.getGenres()
-            .then((response) => { 
-                Genre.insert({data: response})
+    allGenres({commit}){
+        Genre.api().get('/api/genres',
+            {
+                dataTransformer: ({ data, headers }) => {
+                    Genre.deleteAll();
+                    
+                    return data.data
+                }
             })
-            .catch((err) => { 
-                console.log('err', err) 
-            });
     },
+
     addGenre ({commit}, data) {
-        api.add(data)
-            .then((response) => {
-                Genre.insert({data: response}) 
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Genre.api().post('/api/genre', data)
     },
+
     updateGenre ({commit}, data) {
-        api.update(data)
-            .then((response) => {
-                Genre.update({
-                    where: response.id,
-                    data: response
-                })
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Genre.api().post('/api/genre/' + data.id, data)
     },
+
     destroyGenre({commit}, id){
-        api.destroy(id)
-            .then((response) => {
-                Genre.delete(id)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Genre.api().delete('/api/genre/' + id, {
+            delete: id
+        })
+    },
+
+    checkIfAllChecked(){
+        const genres = Genre.query().where('checked', false).get()
+
+        if(!genres.length){
+            return true;
+        }
+
+        return false;
+    },
+
+    allCheckedIds(){
+        const genres = Genre.query().where('checked', true).get()
+
+        return genres.map((genre) => genre.id);
     }
 }
 

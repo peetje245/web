@@ -1,5 +1,3 @@
-import store from '..';
-import api from '../../api/platforms'
 import Platform from '../models/Platform';
 
 const state = () => ({
@@ -14,45 +12,47 @@ const mutations = {
 
 // actions
 const actions = {
-    getAllPlatforms({commit}){
-        api.getPlatforms()
-            .then((response) => { 
-                Platform.insert({data: response})
+    allPlatforms({commit}){
+        Platform.api().get('/api/platforms',
+            {
+                dataTransformer: ({ data, headers }) => {
+                    Platform.deleteAll();
+                    
+                    return data.data
+                }
             })
-            .catch((err) => { 
-                console.log('err', err) 
-            });
     },
+
     addPlatform ({commit}, data) {
-        api.add(data)
-            .then((response) => {
-                Platform.insert({data: response}) 
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Platform.post().get('/api/platform', data)
     },
+
     updatePlatform ({commit}, data) {
-        api.update(data)
-            .then((response) => {
-                Platform.update({
-                    where: response.id,
-                    data: response
-                })
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Platform.post().get('/api/platform/' + data.id, data)
     },
+
     destroyPlatform({commit}, id){
-        api.destroy(id)
-            .then((response) => {
-                Platform.delete(id)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Platform.api().delete('/api/platform/' + id, {
+            delete: id
+        })
+    },
+
+    checkIfAllChecked(){
+        const platforms = Platform.query().where('active', true).where('checked', false).get()
+
+        if(!platforms.length){
+            return true;
+        }
+
+        return false;
+    },
+
+    allCheckedIds(){
+        const platforms = Platform.query().where('active', true).where('checked', true).get()
+
+        return platforms.map((platform) => platform.id);
     }
+
 }
 
 export default {

@@ -8,7 +8,7 @@ export default class Role extends Model {
 
     static fields () {
         return {
-            id: this.number(null),
+            id: this.number(0),
             title: this.string('')
         }
     }

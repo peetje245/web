@@ -7,8 +7,9 @@ export default class Genre extends Model {
 
     static fields () {
         return {
-            id: this.number(null),
+            id: this.number(0),
             title: this.string(''),
+            checked: this.boolean(true)
         }
     }
 }

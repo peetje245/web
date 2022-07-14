@@ -1,5 +1,3 @@
-import store from '..';
-import api from '../../api/developers'
 import Developer from '../models/Developer';
 
 const state = () => ({
@@ -15,43 +13,18 @@ const mutations = {
 // actions
 const actions = {
     getAllDevelopers({commit}){
-        api.getDevelopers()
-            .then((response) => { 
-                Developer.insert({data: response})
-            })
-            .catch((err) => { 
-                console.log('err', err) 
-            });
+        Developer.api().get('/api/developers')
     },
     addDeveloper ({commit}, data) {
-        api.add(data)
-            .then((response) => {
-                Developer.insert({data: response}) 
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Developer.api().post('/api/developer', data)
     },
     updateDeveloper ({commit}, data) {
-        api.update(data)
-            .then((response) => {
-                Developer.update({
-                    where: response.id,
-                    data: response
-                })
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Developer.api().post('/api/developer/' + data.id, data)
     },
     destroyDeveloper({commit}, id){
-        api.destroy(id)
-            .then((response) => {
-                Developer.delete(id)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Developer.api().delete('/api/developer/' + id, {
+            delete: id
+        })
     }
 }
 

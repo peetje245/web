@@ -1,5 +1,3 @@
-import store from '..';
-import api from '../../api/publishers'
 import Publisher from '../models/Publisher';
 
 const state = () => ({
@@ -15,43 +13,18 @@ const mutations = {
 // actions
 const actions = {
     getAllPublishers({commit}){
-        api.getPublishers()
-            .then((response) => { 
-                Publisher.insert({data: response})
-            })
-            .catch((err) => { 
-                console.log('err', err) 
-            });
+        Publisher.api().get('/api/publishers')
     },
     addPublisher ({commit}, data) {
-        api.add(data)
-            .then((response) => {
-                Publisher.insert({data: response}) 
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Publisher.api().post('/api/publisher', data)
     },
     updatePublisher ({commit}, data) {
-        api.update(data)
-            .then((response) => {
-                Publisher.update({
-                    where: response.id,
-                    data: response
-                })
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Publisher.api().post('/api/publisher/' + data.id, data)
     },
     destroyPublisher({commit}, id){
-        api.destroy(id)
-            .then((response) => {
-                Publisher.delete(id)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Publisher.api().delete('/api/publisher/' + id, {
+            delete: id
+        })
     }
 }
 

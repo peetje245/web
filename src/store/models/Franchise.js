@@ -8,11 +8,12 @@ export default class Franchise extends Model {
 
     static fields () {
         return {
-            id: this.number(null),
+            id: this.number(0),
             title: this.string(''),
-            publisher_id: this.number(null),
+            publisher_id: this.number(0),
             publisher: this.belongsTo(Publisher, 'publisher_id'),
-            release_year: this.string('')
+            release_year: this.number(0),
+            checked: this.boolean(true)
         }
     }
 }

@@ -7,8 +7,11 @@ export default class Image extends Model {
 
     static fields () {
         return {
-            id: this.number(null),
+            id: this.number(0),
             name: this.string(''),
+            imageable_id: this.attr(null),
+            imageable_type: this.attr(null),
+            imageable: this.morphTo('imageable_id', 'imageable_type')
         }
     }
 }

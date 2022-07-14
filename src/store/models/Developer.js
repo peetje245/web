@@ -7,7 +7,7 @@ export default class Developer extends Model {
 
     static fields () {
         return {
-            id: this.number(null),
+            id: this.number(0),
             name: this.string(''),
             headquarter: this.string(''),
             established: this.string('')

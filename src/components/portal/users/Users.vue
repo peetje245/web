@@ -222,7 +222,7 @@ export default {
     },
     computed: {
         users () {
-            return User.query().with('role').get();
+            return User.query().with('role').orderBy('name').get();
         }
     },
     methods: {

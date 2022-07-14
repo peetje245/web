@@ -1,5 +1,3 @@
-import store from '..';
-import api from '../../api/articles'
 import Article from '../models/Article';
 
 const state = () => ({
@@ -15,13 +13,7 @@ const mutations = {
 // actions
 const actions = {
     getAllArticles({commit}){
-        api.getArticles()
-            .then((response) => { 
-                Article.insert({data: response})
-            })
-            .catch((err) => { 
-                console.log('err', err) 
-            });
+        Article.api().get('/api/articles')
     }
 }
 

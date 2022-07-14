@@ -1,7 +1,5 @@
-import store from '..';
 import api from '../../api/login'
 import apiRegister from '../../api/register'
-import apiUser from '../../api/users';
 import User from '../models/User';
 
 const state = () => ({
@@ -41,7 +39,7 @@ const actions = {
             });
     },
     register({commit}, data){
-        apiRegister.register(data.email, data.password, data.name, data.password_confirmation)
+        apiRegister.register(data)
             .then((data) => { 
                 this.$router.push('/login')
             })
@@ -50,43 +48,19 @@ const actions = {
             });
     },
     getAllUsers(){
-        apiUser.getUsers()
-            .then((data) => {
-                User.insert({data: data}) 
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        User.api().get('/api/users')
     },
     addUser ({commit}, data) {
-        apiUser.add(data)
-            .then((response) => {
-                User.insert({data: response}) 
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        User.api().post('/api/user', data)
     },
     updateUser ({commit}, data) {
-        apiUser.update(data)
-            .then((response) => {
-                User.update({
-                    where: response.id,
-                    data: response
-                })
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        // todo error response toevoegen
+        User.api().post('/api/user/' + data.id, data)
     },
     destroyUser({commit}, id){
-        apiUser.destroy(id)
-            .then((response) => {
-                User.delete(id)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        User.api().delete('/api/user/' + id, {
+            delete: id
+        })
     }
 }
 

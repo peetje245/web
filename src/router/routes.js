@@ -7,6 +7,7 @@ const routes = [
             // { path: '', component: () => import('src/components/web/articles/Articles.vue') },
             { path: '', component: () => import('src/components/web/games/Games.vue') },
             // { path: 'games', component: () => import('src/components/web/games/Games.vue') },
+            { path: 'game/:id', component: () => import('src/components/web/games/game.vue') },
             { path: 'calendar', component: () => import('src/components/web/calendar/Calendar.vue') },
             { path: 'login', component: () => import('src/pages/Login.vue') },
             { path: 'register', component: () => import('src/pages/Register.vue') },

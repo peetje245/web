@@ -5,10 +5,10 @@
                 <!-- <q-btn @click="redirectArticles" :color="getActive('articles')" flat :label="$t('menuItem.articles')"></q-btn>
                 <q-separator dark vertical inset></q-separator> -->
 
-                <q-btn @click="redirectGames" :color="getActive('games')" flat :label="$t('menuItem.games')"></q-btn>
+                <q-btn @click="redirectGames" no-caps :color="getActive('games')" flat :label="$t('menuItem.games')"></q-btn>
                 <q-separator dark vertical inset></q-separator>
 
-                <q-btn @click="redirectCalendar" :color="getActive('calendar')" flat :label="$t('menuItem.calendar')"></q-btn>
+                <q-btn @click="redirectCalendar" no-caps :color="getActive('calendar')" flat :label="$t('menuItem.calendar')"></q-btn>
 
                 <q-space></q-space>
 
@@ -18,13 +18,17 @@
 
                 <q-space></q-space>
 
-                <q-btn @click="redirectLogin" :color="getActive('login')" flat :label="$t('menuItem.signIn')"></q-btn>
+                <q-btn @click="redirectLogin" no-caps :color="getActive('login')" flat :label="$t('menuItem.signIn')"></q-btn>
             </q-toolbar>
         </q-header>
 
         <q-page-container>
             <router-view />
         </q-page-container>
+
+        <q-toolbar class="bg-black text-white shadow-2">
+            <q-toolbar-title>Footer</q-toolbar-title>
+        </q-toolbar>
     </q-layout>
 </template>
 

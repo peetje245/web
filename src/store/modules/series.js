@@ -1,5 +1,3 @@
-import store from '..';
-import api from '../../api/series'
 import Serie from '../models/Serie';
 
 const state = () => ({
@@ -14,44 +12,38 @@ const mutations = {
 
 // actions
 const actions = {
-    getAllSeries({commit}){
-        api.getSeries()
-            .then((response) => { 
-                Serie.insert({data: response})
-            })
-            .catch((err) => { 
-                console.log('err', err) 
-            });
+    allSeries({commit}){
+        Serie.api().get('/api/series')
     },
-    addSerie ({commit}, data) {
-        api.add(data)
-            .then((response) => {
-                Serie.insert({data: response}) 
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+
+    addSerie({commit}, data) {
+        Serie.api().post('/api/serie', data)
     },
-    updateSerie ({commit}, data) {
-        api.update(data)
-            .then((response) => {
-                Serie.update({
-                    where: response.id,
-                    data: response
-                })
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+
+    updateSerie({commit}, data) {
+        Serie.api().post('/api/serie/' + data.id, data)
     },
+
     destroySerie({commit}, id){
-        api.destroy(id)
-            .then((response) => {
-                Serie.delete(id)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Serie.api().delete('/api/serie/' + id, {
+            delete: id
+        })
+    },
+
+    checkIfAllChecked(){
+        const series = Serie.query().where('checked', false).get()
+
+        if(!series.length){
+            return true;
+        }
+
+        return false;
+    },
+
+    allCheckedIds(){
+        const series = Serie.query().where('checked', true).get()
+
+        return series.map((serie) => serie.id);
     }
 }
 

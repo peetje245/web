@@ -1,5 +1,3 @@
-import store from '..';
-import api from '../../api/franchises'
 import Franchise from '../models/Franchise';
 
 const state = () => ({
@@ -14,44 +12,45 @@ const mutations = {
 
 // actions
 const actions = {
-    getAllFranchises({commit}){
-        api.getFranchises()
-            .then((response) => { 
-                Franchise.insert({data: response})
+    allFranchises({commit}){
+        Franchise.api().get('/api/franchises',
+            {
+                dataTransformer: ({ data, headers }) => {
+                    Franchise.deleteAll();
+                    
+                    return data.data
+                }
             })
-            .catch((err) => { 
-                console.log('err', err) 
-            });
     },
+
     addFranchise ({commit}, data) {
-        api.add(data)
-            .then((response) => {
-                Franchise.insert({data: response}) 
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Franchise.api().post('/api/franchise', data)
     },
+
     updateFranchise ({commit}, data) {
-        api.update(data)
-            .then((response) => {
-                Franchise.update({
-                    where: response.id,
-                    data: response
-                })
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Franchise.api().post('/api/franchise/' + data.id, data)
     },
+
     destroyFranchise({commit}, id){
-        api.destroy(id)
-            .then((response) => {
-                Franchise.delete(id)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        Franchise.api().delete('/api/franchise/' + id, {
+            delete: id
+        })
+    },
+
+    checkIfAllChecked(){
+        const franchises = Franchise.query().where('checked', false).get()
+
+        if(!franchises.length){
+            return true;
+        }
+
+        return false;
+    },
+
+    allCheckedIds(){
+        const franchises = Franchise.query().where('checked', true).get()
+
+        return franchises.map((franchise) => franchise.id);
     }
 }
 
