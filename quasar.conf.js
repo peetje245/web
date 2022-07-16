@@ -74,7 +74,7 @@ module.exports = function ( ctx ) {
 
         env: {
             IMAGE_PATH: ctx.dev
-            ? 'http://localhost:8000/files/'
+            ? 'http://localhost:80/files/'
             : 'https://prod.api.com'
         }
     },
@@ -86,7 +86,7 @@ module.exports = function ( ctx ) {
       open: true, // opens browser window automatically,
       proxy: {
         '/api/**': {
-            target: 'http://localhost:8000/',
+            target: 'http://localhost:80/',
             pathRewrite: { '^/api': '' },
             secure: false,
             logLevel: 'debug'
