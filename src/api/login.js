@@ -5,13 +5,13 @@
  import axios from 'axios';
 
  export default {
-    login (email, password) {
+    login (email, password, remember) {
         let url = 'api/login'
 
         let data = {
             email: email,
             password: password,
-            type: 'web'
+            remember: false
         }
 
         return new Promise((resolve, reject) => {

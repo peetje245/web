@@ -44,7 +44,7 @@ export default class Game extends Model {
             genres: this.belongsToMany(Genre, GameGenre, 'game_id', 'genre_id'),
             platforms: this.belongsToMany(Platform, GamePlatform, 'game_id', 'platform_id'),
             images: this.morphMany(Image, 'imageable_id', 'imageable_type'),
-            image: this.belongsTo(Image, 'imageable_id', 'imageable_type'),
+            image: this.morphOne(Image, 'imageable_id', 'imageable_type'),
             videos: this.morphMany(Video, 'videoable_id', 'videoable_type'),
             date: this.string(''),
             show: this.boolean(true),

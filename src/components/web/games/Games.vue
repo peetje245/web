@@ -144,7 +144,6 @@
                         </q-card-section>
 
                         <q-card-section horizontal>
-                            {{game.image}}
                             <q-img
                                 class="col-4"
                                 v-if="game.image"
@@ -233,11 +232,17 @@ export default {
     },
     computed:{
         games(){
-        //    return Game.all();
-           let test =  Game.all();
-
-console.log('test', test)
-           return test;
+            return Game
+                .query()
+                .with('developer')
+                .with('publisher')
+                .with('serie')
+                .with('franchise')
+                .with('genres')
+                .with('platforms')
+                .with('image')
+                .with('videos')
+                .get();
         },
         genres(){
             return Genre.query().orderBy('title').get();

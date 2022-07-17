@@ -13,7 +13,14 @@ const mutations = {
 // actions
 const actions = {
     allSeries({commit}){
-        Serie.api().get('/api/series')
+        Serie.api().get('/api/series',
+            {
+                dataTransformer: ({ data, headers }) => {
+                    Serie.deleteAll();
+                    
+                    return data.data
+                }
+            })
     },
 
     addSerie({commit}, data) {

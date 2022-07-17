@@ -72,8 +72,7 @@ export default {
                 email: this.email,
                 password: this.password,
                 password_confirmation: this.password_confirmation,
-                name: this.name,
-                type: 'web'
+                name: this.name
             }
 
             User.dispatch('register', data);

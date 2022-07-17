@@ -12,7 +12,13 @@ const mutations = {}
 // actions
 const actions = {
     getAllRoles({commit}){
-        Role.api().get('/api/roles')
+        Role.api().get('/api/roles',
+            {
+                dataTransformer: ({ data, headers }) => {
+                    Role.deleteAll();
+                    return data.data
+                }
+            })
     }
 }
 
